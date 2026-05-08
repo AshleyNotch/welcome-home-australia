@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const featured = services.slice(0, 4);
+const listed = services.filter((s) => s.slug !== "initial-consultations");
 
 const stats = [
   { value: "10+", label: "Years of migration practice" },
@@ -127,32 +127,26 @@ function Index() {
       {/* HOW WE HELP */}
       <section className="bg-secondary">
         <div className="container-prose py-24 md:py-32">
-          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-            <div className="max-w-xl">
+          <div className="max-w-xl">
               <p className="eyebrow">How We Can Help</p>
-              <h2 className="mt-5 font-display text-4xl font-light leading-tight md:text-5xl">Specialised guidance, four clear pathways.</h2>
+              <h2 className="mt-5 font-display text-4xl font-light leading-tight md:text-5xl">Ten visa specialisations, one trusted team.</h2>
             </div>
-            <Link to="/services" className="group inline-flex items-center gap-2 text-sm font-medium text-foreground">
-              All services
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-          </div>
 
           <div className="mt-16 grid gap-px bg-border md:grid-cols-2">
-            {featured.map((s, i) => (
+            {listed.map((s, i) => (
               <Link
                 key={s.slug}
                 to="/services"
-                className="group relative flex flex-col gap-6 bg-background p-10 transition-colors hover:bg-card"
+                className="group relative flex flex-col gap-6 bg-background p-8 transition-colors hover:bg-card"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-display text-5xl text-brass">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-display text-4xl text-brass">{String(i + 1).padStart(2, "0")}</span>
                   <ArrowUpRight className="h-5 w-5 text-foreground/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
                 </div>
                 <div>
-                  <h3 className="font-display text-2xl font-medium">{s.title}</h3>
+                  <h3 className="font-display text-xl font-medium">{s.title}</h3>
                   {s.subclass && <p className="mt-1 text-xs uppercase tracking-[0.2em] text-brass-deep">{s.subclass}</p>}
-                  <p className="mt-4 text-foreground/70">{s.short}</p>
+                  <p className="mt-3 text-sm text-foreground/70">{s.short}</p>
                 </div>
               </Link>
             ))}
