@@ -63,7 +63,7 @@ function ServicesPage() {
             </p>
             <Link
               to="/contact"
-              className="mt-8 inline-flex items-center gap-2 rounded-sm bg-accent px-6 py-4 text-sm font-medium text-foreground transition-transform hover:-translate-y-0.5"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-4 text-sm font-semibold text-foreground transition-transform hover:-translate-y-0.5"
             >
               Book a Free Consultation
               <ArrowUpRight className="h-4 w-4" />

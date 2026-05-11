@@ -15,8 +15,8 @@ export function SiteFooter() {
             A migration & visa consultancy delivering lawful, accurate, long-term solutions for individuals and businesses moving to Australia.
           </p>
           <div className="mt-6 flex gap-3 text-[0.65rem] uppercase tracking-[0.25em] text-background/60">
-            <span className="rounded-sm border border-background/30 px-3 py-1.5">MARA Aware</span>
-            <span className="rounded-sm border border-background/30 px-3 py-1.5">MIA Member</span>
+            <span className="rounded-full border border-background/30 px-3 py-1.5">MARA Aware</span>
+            <span className="rounded-full border border-background/30 px-3 py-1.5">MIA Member</span>
           </div>
         </div>
 

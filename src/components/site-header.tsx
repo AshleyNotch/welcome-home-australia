@@ -39,7 +39,7 @@ export function SiteHeader() {
 
         <Link
           to="/contact"
-          className="hidden items-center gap-2 rounded-sm bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:bg-ink-soft md:inline-flex"
+          className="hidden items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition-colors hover:bg-ink-soft md:inline-flex"
         >
           Book a Consultation
         </Link>
@@ -61,7 +61,7 @@ export function SiteHeader() {
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
-                className="rounded-sm px-2 py-2.5 text-sm font-medium text-foreground/80 hover:bg-secondary"
+                className="rounded-xl px-2 py-2.5 text-sm font-medium text-foreground/80 hover:bg-secondary"
               >
                 {n.label}
               </Link>
@@ -69,7 +69,7 @@ export function SiteHeader() {
             <Link
               to="/contact"
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center rounded-sm bg-foreground px-5 py-3 text-sm font-medium text-background"
+              className="mt-2 inline-flex items-center justify-center rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background"
             >
               Book a Consultation
             </Link>

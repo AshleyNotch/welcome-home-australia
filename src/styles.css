@@ -11,7 +11,6 @@
  */
 
 @import url("https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,800,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -163,13 +162,102 @@
   }
 }
 
+/* ── Hero entrance animation ──────────────────────────────────────────────
+   All motions: cubic-bezier(0.4, 0, 0.2, 1) — snap start, silky finish.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* Image wrapper: full-screen at 0s, left edge contracts rightward to 38vw
+   while top/right/bottom gain 2% margin — revealing the cream bg around it.
+   border-radius grows as it "floats" into its final card position. */
+@keyframes hero-card-in {
+  0%   { clip-path: inset(0%  0%  0%  0%  round 0px);  opacity: 0; }
+  8%   { clip-path: inset(0%  0%  0%  0%  round 0px);  opacity: 1; }
+  52%  { clip-path: inset(2%  2%  2%  38% round 14px); opacity: 1; }
+  100% { clip-path: inset(2%  2%  2%  38% round 14px); opacity: 1; }
+}
+
+/* Image reframes (not just crops) as container contracts — pan from centre
+   to right to keep Opera House + Bridge centred in the visible card. */
+@keyframes hero-image-pan {
+  0%   { object-position: 50% center; }
+  8%   { object-position: 50% center; }
+  52%  { object-position: 82% center; }
+  100% { object-position: 82% center; }
+}
+
+/* Left white panel slides in from off-screen left */
+@keyframes hero-panel-in {
+  0%   { transform: translateX(-100%); }
+  52%  { transform: translateX(0); }
+  100% { transform: translateX(0); }
+}
+
+/* Logo floats up 15 px into place */
+@keyframes hero-logo-in {
+  0%   { opacity: 0; transform: translateY(15px); }
+  38%  { opacity: 0; transform: translateY(15px); }
+  60%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Bio paragraph floats up 15 px */
+@keyframes hero-desc-in {
+  0%   { opacity: 0; transform: translateY(15px); }
+  44%  { opacity: 0; transform: translateY(15px); }
+  66%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Headline: rises out of thin air via clip-path from below */
+@keyframes hero-headline-in {
+  0%   { clip-path: inset(100% 0 0 0); transform: translateY(20px); opacity: 0; }
+  56%  { clip-path: inset(100% 0 0 0); transform: translateY(20px); opacity: 0; }
+  82%  { clip-path: inset(0%   0 0 0); transform: translateY(0);    opacity: 1; }
+  100% { clip-path: inset(0%   0 0 0); transform: translateY(0);    opacity: 1; }
+}
+
+/* Nav links drop in from above */
+@keyframes hero-nav-in {
+  0%   { opacity: 0; transform: translateY(-10px); }
+  58%  { opacity: 0; transform: translateY(-10px); }
+  80%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Book a Call slides in from right */
+@keyframes hero-cta-in {
+  0%   { opacity: 0; transform: translateX(24px); }
+  62%  { opacity: 0; transform: translateX(24px); }
+  84%  { opacity: 1; transform: translateX(0); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Pills rise from below via clip-path mask */
+@keyframes hero-pill-in {
+  from { clip-path: inset(100% 0 0 0); transform: translateY(8px); opacity: 0; }
+  to   { clip-path: inset(0%   0 0 0); transform: translateY(0);   opacity: 1; }
+}
+
+/* CTA arrow rotates into place */
+@keyframes hero-icon-spin {
+  from { transform: rotate(-40deg); }
+  to   { transform: rotate(0deg); }
+}
+
+/* View All micro-bounce */
+@keyframes hero-bounce {
+  0%, 100% { transform: translateY(0); }
+  35%       { transform: translateY(-5px); }
+  65%       { transform: translateY(-2px); }
+}
+
 @layer utilities {
   .container-prose {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 50px;
+    padding-right: 50px;
   }
   .eyebrow {
     font-family: var(--font-sans);
@@ -185,4 +273,15 @@
     background: var(--brass);
     display: inline-block;
   }
+
+  /* Hero animation utilities — all share the same premium easing */
+  .animate-hero-card-in  { animation: hero-card-in    4s   cubic-bezier(0.4,0,0.2,1) both; }
+  .animate-hero-pan      { animation: hero-image-pan  4s   cubic-bezier(0.4,0,0.2,1) both; }
+  .animate-hero-panel    { animation: hero-panel-in   4s   cubic-bezier(0.4,0,0.2,1) both; }
+  .animate-hero-logo     { animation: hero-logo-in    4s   cubic-bezier(0.4,0,0.2,1) both; }
+  .animate-hero-desc     { animation: hero-desc-in    4s   cubic-bezier(0.4,0,0.2,1) both; }
+  .animate-hero-headline { animation: hero-headline-in 4s  cubic-bezier(0.4,0,0.2,1) both; }
+  .animate-hero-nav      { animation: hero-nav-in     4s   cubic-bezier(0.4,0,0.2,1) both; }
+  .animate-hero-cta      { animation: hero-cta-in     4s   cubic-bezier(0.4,0,0.2,1) both; }
+  .animate-hero-pill     { animation: hero-pill-in   0.55s cubic-bezier(0.4,0,0.2,1) both; }
 }

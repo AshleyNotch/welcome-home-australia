@@ -36,7 +36,7 @@ function AboutPage() {
             </p>
           </div>
           <div className="md:col-span-5">
-            <img src={aboutImg} alt="Masterguides Australia clients" loading="lazy" width={1280} height={1280} className="h-full w-full rounded-sm object-cover" />
+            <img src={aboutImg} alt="Masterguides Australia clients" loading="lazy" width={1280} height={1280} className="h-full w-full rounded-2xl object-cover" />
           </div>
         </div>
       </section>
@@ -64,7 +64,7 @@ function AboutPage() {
           <h2 className="font-display text-4xl font-light leading-tight md:text-5xl">Ready to start your case review?</h2>
           <div>
             <p className="text-lg text-background/80">A short consultation is often all it takes to know whether your application is on safe ground.</p>
-            <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-sm bg-accent px-6 py-4 text-sm font-medium text-foreground hover:-translate-y-0.5 transition-transform">
+            <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-4 text-sm font-semibold text-foreground hover:-translate-y-0.5 transition-transform">
               Book a Consultation <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
