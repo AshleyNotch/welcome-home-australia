@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
 } from "@tanstack/react-router";
 
 import { SiteHeader } from "@/components/site-header";
@@ -74,11 +75,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const isHome = useRouterState({ select: (s) => s.location.pathname === "/" });
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col bg-background text-foreground">
-        <SiteHeader />
+        {/* On the home page, the hero has its own integrated nav on desktop */}
+        <div className={isHome ? "md:hidden" : ""}>
+          <SiteHeader />
+        </div>
         <main className="flex-1">
           <Outlet />
         </main>

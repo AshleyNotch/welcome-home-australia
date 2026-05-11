@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import logoImg from "@/assets/logo.png";
 
 const nav = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
   { to: "/services", label: "Services" },
-  { to: "/insights", label: "Insights" },
-  { to: "/contact", label: "Contact" },
+  { to: "/about", label: "About Us" },
+  { to: "/client-stories", label: "Client Stories" },
+  { to: "/contact", label: "Contact Us" },
 ] as const;
 
 export function SiteHeader() {
@@ -16,10 +16,10 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="container-prose flex h-20 items-center justify-between">
         <Link to="/" className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-sm bg-foreground text-background font-display text-xl font-semibold">M</span>
+          <img src={logoImg} alt="Master Guide Australia" className="h-11 w-11 object-contain" />
           <span className="leading-tight">
-            <span className="block font-display text-lg font-semibold text-foreground">Masterguides</span>
-            <span className="block text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">Australia · Migration & Visa</span>
+            <span className="block text-lg font-semibold text-foreground" style={{ fontFamily: "var(--font-satoshi)" }}>Masterguides Australia</span>
+            <span className="block text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">Migration & Visa</span>
           </span>
         </Link>
 

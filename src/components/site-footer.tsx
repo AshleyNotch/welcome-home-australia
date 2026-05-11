@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin } from "lucide-react";
+import logoImg from "@/assets/logo.png";
 
 export function SiteFooter() {
   return (
@@ -7,8 +8,8 @@ export function SiteFooter() {
       <div className="container-prose grid gap-12 py-16 md:grid-cols-4">
         <div className="md:col-span-2 max-w-md">
           <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-sm bg-background text-foreground font-display text-xl font-semibold">M</span>
-            <span className="font-display text-lg font-semibold">Masterguides Australia</span>
+            <img src={logoImg} alt="Master Guide Australia" className="h-12 w-12 object-contain brightness-0 invert" />
+            <span className="text-lg font-semibold" style={{ fontFamily: "var(--font-satoshi)" }}>Masterguides Australia</span>
           </div>
           <p className="mt-5 text-sm leading-relaxed text-background/70">
             A migration & visa consultancy delivering lawful, accurate, long-term solutions for individuals and businesses moving to Australia.
@@ -23,10 +24,10 @@ export function SiteFooter() {
           <h4 className="text-[0.7rem] font-medium uppercase tracking-[0.25em] text-background/60">Navigate</h4>
           <ul className="mt-5 space-y-3 text-sm">
             {[
-              { to: "/about", label: "About" },
               { to: "/services", label: "Services" },
-              { to: "/insights", label: "Insights" },
-              { to: "/contact", label: "Contact" },
+              { to: "/about", label: "About Us" },
+              { to: "/client-stories", label: "Client Stories" },
+              { to: "/contact", label: "Contact Us" },
             ].map((n) => (
               <li key={n.to}>
                 <Link to={n.to} className="text-background/80 hover:text-background">{n.label}</Link>
