@@ -18,7 +18,7 @@ export function SiteHeader() {
         <Link to="/" className="flex items-center gap-3">
           <img src={logoImg} alt="Master Guide Australia" className="h-11 w-11 object-contain" />
           <span className="leading-tight">
-            <span className="block text-lg font-semibold text-foreground" style={{ fontFamily: "var(--font-satoshi)" }}>Masterguides Australia</span>
+            <span className="block text-lg font-semibold text-foreground">Masterguides Australia</span>
             <span className="block text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">Migration & Visa</span>
           </span>
         </Link>

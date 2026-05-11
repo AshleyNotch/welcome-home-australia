@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div className="md:col-span-2 max-w-md">
           <div className="flex items-center gap-3">
             <img src={logoImg} alt="Master Guide Australia" className="h-12 w-12 object-contain brightness-0 invert" />
-            <span className="text-lg font-semibold" style={{ fontFamily: "var(--font-satoshi)" }}>Masterguides Australia</span>
+            <span className="text-lg font-semibold">Masterguides Australia</span>
           </div>
           <p className="mt-5 text-sm leading-relaxed text-background/70">
             A migration & visa consultancy delivering lawful, accurate, long-term solutions for individuals and businesses moving to Australia.

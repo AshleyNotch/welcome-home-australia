@@ -106,47 +106,53 @@ function Index() {
         <div className="hidden h-full md:flex">
 
           {/* LEFT PANEL — white, logo + description + service tags */}
-          <div className="flex w-[38%] shrink-0 flex-col justify-between bg-background px-12 py-10 xl:px-16 xl:py-14">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-3">
-              <img src={logoImg} alt="Master Guide Australia" className="h-12 w-12 object-contain" />
-              <span className="leading-tight">
-                <span className="block text-lg font-semibold text-foreground" style={{ fontFamily: "var(--font-satoshi)" }}>Masterguides Australia</span>
-                <span className="block text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">
-                  Migration & Visa
+          <div className="flex w-[38%] shrink-0 flex-col bg-background px-12 xl:px-16">
+
+            {/* Logo row — fixed height, mirrors the nav row height on the right */}
+            <div className="flex h-[4.5rem] shrink-0 items-center">
+              <Link to="/" className="flex items-center gap-3">
+                <img src={logoImg} alt="Master Guide Australia" className="h-12 w-12 object-contain" />
+                <span className="leading-tight">
+                  <span className="block text-lg font-semibold text-foreground">Masterguides Australia</span>
+                  <span className="block text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">
+                    Migration & Visa
+                  </span>
                 </span>
-              </span>
-            </Link>
+              </Link>
+            </div>
 
-            {/* Description */}
-            <p className="max-w-xs text-base leading-relaxed text-foreground/65">
-              Masterguides Australia is your trusted migration partner. Expert guidance for student, partner, skilled and employer-sponsored visas, appeals, and permanent residency pathways.
-            </p>
+            {/* Body — fills remaining height */}
+            <div className="flex flex-1 flex-col justify-between py-12 xl:py-16">
+              {/* Description */}
+              <p className="max-w-xs text-base leading-relaxed text-foreground/65">
+                Masterguides Australia is your trusted migration partner. Expert guidance for student, partner, skilled and employer-sponsored visas, appeals, and permanent residency pathways.
+              </p>
 
-            {/* Service pills + View All — flex-wrap, fixed height, hug width */}
-            <div className="flex flex-wrap gap-2">
-              {heroTags.map((t) => (
+              {/* Service pills + View All — flex-wrap, fixed height, hug width */}
+              <div className="flex flex-wrap gap-2">
+                {heroTags.map((t) => (
+                  <Link
+                    key={t.slug}
+                    to="/services"
+                    className="inline-flex h-11 items-center whitespace-nowrap rounded-full border border-foreground/20 px-5 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-foreground transition-all hover:border-foreground hover:bg-foreground hover:text-background"
+                  >
+                    {t.title}
+                  </Link>
+                ))}
                 <Link
-                  key={t.slug}
                   to="/services"
-                  className="inline-flex h-11 items-center whitespace-nowrap rounded-full border border-foreground/20 px-5 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-foreground transition-all hover:border-foreground hover:bg-foreground hover:text-background"
+                  className="inline-flex h-11 items-center whitespace-nowrap rounded-full border border-foreground/15 px-5 text-[0.68rem] font-bold tracking-[0.1em] text-foreground/40 transition-all hover:border-foreground hover:bg-foreground hover:text-background"
                 >
-                  {t.title}
+                  +{remainingCount}
                 </Link>
-              ))}
-              <Link
-                to="/services"
-                className="inline-flex h-11 items-center whitespace-nowrap rounded-full border border-foreground/15 px-5 text-[0.68rem] font-bold tracking-[0.1em] text-foreground/40 transition-all hover:border-foreground hover:bg-foreground hover:text-background"
-              >
-                +{remainingCount}
-              </Link>
-              <Link
-                to="/services"
-                className="inline-flex h-11 items-center gap-2 whitespace-nowrap rounded-full border border-foreground px-5 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-foreground transition-all hover:bg-foreground hover:text-background"
-              >
-                View All
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
+                <Link
+                  to="/services"
+                  className="inline-flex h-11 items-center gap-2 whitespace-nowrap rounded-full border border-foreground px-5 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-foreground transition-all hover:bg-foreground hover:text-background"
+                >
+                  View All
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -159,8 +165,8 @@ function Index() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/10 to-foreground/30" />
 
-            {/* Integrated nav */}
-            <nav className="absolute left-0 right-0 top-0 flex items-center justify-between px-10 py-8">
+            {/* Integrated nav — same fixed height as logo row */}
+            <nav className="absolute left-0 right-0 top-0 flex h-[4.5rem] items-center justify-between px-10">
               <div className="flex items-center gap-8">
                 {heroNav.map((n) => (
                   <Link
@@ -183,7 +189,7 @@ function Index() {
 
             {/* Large headline at bottom */}
             <div className="absolute bottom-0 left-0 px-10 pb-12 xl:px-14 xl:pb-16">
-              <h1 className="font-display text-[4.5rem] font-light leading-[1.02] text-background xl:text-[5.5rem]">
+              <h1 className="text-[4.5rem] font-bold leading-[1.02] text-background xl:text-[5.5rem]" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
                 Your guide<br />to Australia.
               </h1>
             </div>
