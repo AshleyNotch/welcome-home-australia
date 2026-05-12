@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useEffect, useState } from "react";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Briefcase, Gem, Users, Zap, Quote } from "lucide-react";
 import heroImg from "@/assets/hero-sydney.jpg";
 import logoImg from "@/assets/logo.png";
 import { services } from "@/lib/services-data";
@@ -22,9 +22,9 @@ const heroNav = [
 ];
 
 const statsData = [
-  { end: 10,  format: (n: number) => `${n}K+`, label: "Cases reviewed & guided" },
-  { end: 10,  format: (n: number) => `${n}+`,  label: "Years of experience" },
-  { end: 98,  format: (n: number) => `${n}%`,  label: "Client satisfaction" },
+  { end: 10, format: (n: number) => `${n}K+`, label: "Cases reviewed & guided" },
+  { end: 10, format: (n: number) => `${n}+`, label: "Years of experience" },
+  { end: 98, format: (n: number) => `${n}%`, label: "Client satisfaction" },
 ];
 
 // Circle sizes per breakpoint (diameter):
@@ -169,6 +169,165 @@ function MissionText() {
   );
 }
 
+const benefits = [
+  {
+    Icon: Briefcase,
+    title: "Deep Expertise",
+    desc: "Registered migration agents with mastery of Australian visa law, policy, and every major pathway.",
+  },
+  {
+    Icon: Gem,
+    title: "Proven Effectiveness",
+    desc: "Thousands of successful visa outcomes across every category — from student visas to permanent residency.",
+  },
+  {
+    Icon: Users,
+    title: "Individual Approach",
+    desc: "Every case is unique. We build a tailored strategy around your specific circumstances and goals.",
+  },
+  {
+    Icon: Zap,
+    title: "Transparent Pricing",
+    desc: "Clear, upfront costs with no hidden fees. You know exactly what to expect from day one.",
+  },
+  {
+    Icon: ArrowUpRight,
+    title: "End-to-End Support",
+    desc: "From your first consultation to visa grant — we're with you at every stage of the process.",
+  },
+];
+
+function BenefitCard({ b }: { b: (typeof benefits)[0] }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="flex w-[520px] shrink-0 flex-col justify-between rounded-2xl p-10"
+      style={{
+        backgroundColor: hovered ? "#00417c" : "#d8e8f5",
+        height: "460px",
+        transition: "background-color 0.3s ease",
+      }}
+    >
+      <div
+        className="flex h-14 w-14 items-center justify-center rounded-2xl"
+        style={{
+          backgroundColor: hovered ? "white" : "#1a3a5c",
+          transition: "background-color 0.3s ease",
+        }}
+      >
+        <b.Icon
+          className="h-6 w-6"
+          style={{ color: hovered ? "#00417c" : "white", transition: "color 0.3s ease" }}
+        />
+      </div>
+      <div>
+        <h3
+          className="font-display text-4xl font-light leading-tight"
+          style={{ color: hovered ? "white" : undefined, transition: "color 0.3s ease" }}
+        >
+          {b.title}
+        </h3>
+        <p
+          className="mt-4"
+          style={{
+            color: hovered ? "rgba(255,255,255,0.7)" : "var(--color-foreground)",
+            opacity: hovered ? 1 : 0.6,
+            transition: "color 0.3s ease, opacity 0.3s ease",
+          }}
+        >
+          {b.desc}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function BenefitsSection() {
+  const outerRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [translateX, setTranslateX] = useState(0);
+
+  useEffect(() => {
+    const outer = outerRef.current;
+    const sticky = stickyRef.current;
+    const track = trackRef.current;
+    if (!outer || !sticky || !track) return;
+
+    const setHeight = () => {
+      const stickyH = sticky.offsetHeight;
+      const maxScroll = track.scrollWidth - window.innerWidth;
+      const dwell = stickyH * 0.25;
+      outer.style.height = `${stickyH + Math.max(0, maxScroll) + dwell}px`;
+    };
+
+    setHeight();
+    window.addEventListener("resize", setHeight);
+
+    const onScroll = () => {
+      const o = outerRef.current;
+      const s = stickyRef.current;
+      const t = trackRef.current;
+      if (!o || !s || !t) return;
+      const maxScroll = t.scrollWidth - window.innerWidth;
+      const progress = Math.max(0, Math.min(1, -o.getBoundingClientRect().top / maxScroll));
+      setTranslateX(-progress * maxScroll);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", setHeight);
+    };
+  }, []);
+
+  return (
+    <div ref={outerRef} className="bg-background">
+      <div ref={stickyRef} className="sticky top-0 flex flex-col overflow-hidden bg-background pb-10">
+        <div className="px-[50px] pt-10 pb-6 shrink-0">
+          <p className="text-base font-bold text-foreground">Why Us</p>
+          <div className="mt-4 border-t border-border" />
+        </div>
+        <div className="overflow-hidden pt-8">
+          <div
+            ref={trackRef}
+            className="flex gap-5 pl-[50px]"
+            style={{ transform: `translateX(${translateX}px)`, willChange: "transform" }}
+          >
+            {benefits.map((b) => (
+              <BenefitCard key={b.title} b={b} />
+            ))}
+            <div className="w-[50px] shrink-0" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const homeStories = [
+  {
+    name: "Themiya Wickramage",
+    visa: "Skilled Migration · Subclass 189",
+    outcome: "Permanent Residency Granted",
+    quote: "I was sceptical about my visa process, but the team's expertise quickly dispelled every doubt. Meticulous planning, calm execution — my visa was approved without disruption.",
+  },
+  {
+    name: "Bhagya Senatilake",
+    visa: "Partner Visa · Subclass 820",
+    outcome: "Visa Approved",
+    quote: "Exceptional support for a complex case. Every concern was addressed promptly and professionally. What could have been stressful became completely seamless.",
+  },
+  {
+    name: "Ahen Wanigasekara",
+    visa: "Employer Sponsored · Subclass 482",
+    outcome: "Nomination & Visa Approved",
+    quote: "Master Guides Australia handled my case with precision and efficiency. They were responsive at every step and made the process unusually easy.",
+  },
+];
+
 function scrollDown() {
   window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
 }
@@ -260,22 +419,30 @@ function Index() {
           </div>
 
           <div className="relative flex-1">
-            <nav className="animate-hero-nav absolute left-0 right-0 top-0 flex items-center justify-between px-[50px] pt-[30px] pb-[15px]">
-              <div className="flex items-center gap-[15px]">
-                {heroNav.map((n) => (
-                  <Link key={n.to} to={n.to}
-                    className="text-sm font-medium text-background/80 transition-colors hover:text-background">
-                    {n.label}
-                  </Link>
-                ))}
+            <nav
+              className="animate-hero-nav absolute left-0 right-0 top-0"
+              style={{ paddingRight: '2vw' }}
+            >
+              <div
+                className="flex items-center justify-between"
+                style={{ padding: '44px 32px 32px' }}
+              >
+                <div className="flex items-center gap-[15px]">
+                  {heroNav.map((n) => (
+                    <Link key={n.to} to={n.to}
+                      className="text-sm font-medium text-background/80 transition-colors hover:text-background">
+                      {n.label}
+                    </Link>
+                  ))}
+                </div>
+                <Link to="/contact"
+                  className="animate-hero-cta flex items-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-medium text-foreground transition-opacity hover:opacity-85">
+                  Book a Call
+                  <span className="inline-block" style={{ animation: "hero-icon-spin 0.6s cubic-bezier(0.4,0,0.2,1) 2.8s both" }}>
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </Link>
               </div>
-              <Link to="/contact"
-                className="animate-hero-cta my-6 flex items-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-medium text-foreground transition-opacity hover:opacity-85">
-                Book a Call
-                <span className="inline-block" style={{ animation: "hero-icon-spin 0.6s cubic-bezier(0.4,0,0.2,1) 2.8s both" }}>
-                  <ArrowUpRight className="h-4 w-4" />
-                </span>
-              </Link>
             </nav>
 
             <div className="absolute bottom-0 left-0 px-10 pb-12 xl:px-14 xl:pb-16">
@@ -314,6 +481,257 @@ function Index() {
 
       <StatsSection />
 
+      {/* ─── SERVICES LIST ────────────────────────────────────── */}
+      <section className="mx-[50px] overflow-hidden rounded-[14px] px-[50px] py-16 text-background" style={{ backgroundColor: '#00417c' }}>
+
+        <p className="text-base font-bold text-background">Our services</p>
+        <div className="mt-4 border-t border-background/15" />
+
+        <div>
+          {listed.slice(0, 5).map((s, i) => (
+            <Link
+              key={s.slug}
+              to="/services"
+              className="group flex flex-col border-b border-background/10 py-7 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[40px] font-light leading-none text-background/40 transition-colors duration-300 group-hover:text-background lg:text-[56px]">
+                  {s.title}
+                </span>
+                <span className="text-sm text-background/25 transition-colors duration-300 group-hover:text-background/60">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+              {/* Description + CTA expand on hover */}
+              <div className="grid grid-rows-[0fr] transition-all duration-300 group-hover:mt-4 group-hover:grid-rows-[1fr]">
+                <div className="overflow-hidden">
+                  <div className="flex items-end justify-between gap-6">
+                    <p className="text-sm text-background/50 lg:text-base">{s.short}</p>
+                    <Link
+                      to="/contact"
+                      onClick={(e) => e.stopPropagation()}
+                      className="shrink-0 inline-flex items-center gap-2 rounded-full bg-background px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-foreground transition-opacity hover:opacity-80"
+                    >
+                      Book a Call
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          {listed.slice(5).map((s, i) => (
+            <Link
+              key={s.slug}
+              to="/services"
+              className="inline-flex items-center gap-2 rounded-full border border-background/20 px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-background/50 transition-all hover:border-background/50 hover:text-background"
+            >
+              <span className="text-background/30">{String(i + 6).padStart(2, "0")}</span>
+              {s.title}
+            </Link>
+          ))}
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-2 rounded-full border border-background px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-background transition-all hover:bg-background hover:text-foreground"
+          >
+            Read More
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
+
+      </section>
+
+      <BenefitsSection />
+
+      {/* ─── CTA BANNER ───────────────────────────────────────── */}
+      <section className="mx-[50px] mt-5 overflow-hidden rounded-[14px]" style={{ height: '340px' }}>
+        <div className="relative h-full">
+          <img
+            src={heroImg}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-[50%_30%]"
+          />
+          <div className="absolute inset-0 bg-foreground/60" />
+          <div className="relative flex h-full flex-col items-center justify-center gap-6 text-center px-6">
+            <h2 className="font-display text-4xl font-bold text-background md:text-5xl">
+              Ready for expert migration guidance?
+            </h2>
+            <p className="max-w-lg text-background/70">
+              Clear answers. Trusted support. Let Masterguides Australia be your compass to a new life here.
+            </p>
+            <Link
+              to="/contact"
+              className="mt-2 inline-flex items-center rounded-full bg-background pl-7 pr-2 py-2 text-sm font-semibold uppercase tracking-[0.15em] text-foreground transition-opacity hover:opacity-90"
+            >
+              Book a Consultation
+              <span className="ml-4 flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-background">
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CLIENT STORIES ───────────────────────────────────── */}
+      <section className="bg-background">
+        <div className="px-[50px] pt-12 pb-0">
+          <div className="flex items-center justify-between">
+            <p className="text-base font-bold text-foreground">Client stories</p>
+            <Link
+              to="/client-stories"
+              className="inline-flex items-center rounded-full border border-foreground pl-6 pr-2 py-2 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-foreground transition-opacity hover:opacity-70"
+            >
+              View All
+              <span className="ml-4 flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background">
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </span>
+            </Link>
+          </div>
+          <div className="mt-4 border-t border-border" />
+        </div>
+
+        <div className="mt-8 flex gap-4 pb-12 pl-[50px] overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+          {homeStories.flatMap((s) => {
+            const initials = s.name.split(" ").map((n) => n[0]).join("");
+            return [
+              /* Portrait card */
+              <div
+                key={`${s.name}-photo`}
+                className="relative flex w-[260px] shrink-0 flex-col justify-end overflow-hidden rounded-2xl p-7"
+                style={{ backgroundColor: "#00417c", height: "400px" }}
+              >
+                <span className="absolute inset-0 flex items-center justify-center text-[140px] font-bold select-none" style={{ color: "rgba(255,255,255,0.07)" }}>
+                  {initials}
+                </span>
+                <div className="relative">
+                  <p className="font-semibold text-white">{s.name}</p>
+                  <p className="mt-1 text-[0.65rem] uppercase tracking-[0.2em] text-white/50">{s.visa}</p>
+                </div>
+              </div>,
+
+              /* Quote card */
+              <div
+                key={`${s.name}-quote`}
+                className="flex w-[400px] shrink-0 flex-col justify-between rounded-2xl p-8"
+                style={{ backgroundColor: "#d8e8f5", height: "400px" }}
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="font-semibold text-foreground">{s.name}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{s.visa}</p>
+                  </div>
+                  <div
+                    className="ml-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-sm font-bold text-white"
+                    style={{ backgroundColor: "#1a3a5c" }}
+                  >
+                    {initials}
+                  </div>
+                </div>
+
+                <p className="text-xl font-light leading-relaxed text-foreground">"{s.quote}"</p>
+
+                <div>
+                  <span className="mb-4 inline-block rounded-full border border-brass/40 px-3 py-1 text-xs font-medium uppercase tracking-[0.15em] text-brass-deep">
+                    {s.outcome}
+                  </span>
+                  <Link to="/client-stories" className="block text-xs font-semibold uppercase tracking-[0.2em] text-foreground/50 underline underline-offset-4 hover:text-foreground">
+                    Read More
+                  </Link>
+                </div>
+              </div>,
+            ];
+          })}
+          <div className="w-[50px] shrink-0" />
+        </div>
+      </section>
+
+      {/* ─── FAQ ──────────────────────────────────────────────── */}
+      <FaqSection />
+
     </>
+  );
+}
+
+const faqs = [
+  {
+    q: "What does an initial consultation include?",
+    a: "We analyse your migration situation in full, assess your visa options, identify any eligibility risks, and outline the strongest pathway under current Australian migration law. You leave with a clear plan and realistic expectations.",
+  },
+  {
+    q: "How much does it cost?",
+    a: "Fees vary depending on the visa type and complexity of your case. We provide a transparent quote after your initial consultation — no hidden charges.",
+  },
+  {
+    q: "Can my case be handled remotely?",
+    a: "Yes. We work with clients across Australia and internationally. All consultations, document reviews, and submissions can be completed entirely online.",
+  },
+  {
+    q: "How long does a visa application take?",
+    a: "Processing times vary by visa subclass and the Department of Home Affairs' current workload. We'll give you realistic timelines specific to your application during your consultation.",
+  },
+  {
+    q: "What happens if my visa is refused?",
+    a: "We can review the decision and advise on appeal options through the Administrative Review Tribunal (ART), or explore alternative visa pathways. Early legal advice after a refusal is critical.",
+  },
+];
+
+function FaqSection() {
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <section className="bg-background">
+      <div className="px-[50px] pt-12 pb-0">
+        <div className="flex items-center justify-between">
+          <p className="text-base font-bold text-foreground">Frequently asked questions</p>
+          <Link
+            to="/contact"
+            className="inline-flex items-center rounded-full border border-foreground pl-6 pr-2 py-2 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-foreground transition-opacity hover:opacity-70"
+          >
+            Contact Us
+            <span className="ml-4 flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background">
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </Link>
+        </div>
+        <div className="mt-4 border-t border-border" />
+      </div>
+
+      <div className="py-8 pl-[50px] pr-[50px] md:pl-[30%] space-y-3">
+        {faqs.map((faq, i) => {
+          const isOpen = open === i;
+          return (
+            <button
+              key={i}
+              onClick={() => setOpen(isOpen ? null : i)}
+              className="w-full rounded-2xl px-8 py-6 text-left transition-colors duration-300"
+              style={{ backgroundColor: isOpen ? "#00417c" : "#d8e8f5" }}
+            >
+              <div className="flex items-center justify-between gap-6">
+                <span
+                  className="text-lg font-light leading-snug"
+                  style={{ color: isOpen ? "white" : "var(--color-foreground)" }}
+                >
+                  {faq.q}
+                </span>
+                <span
+                  className="shrink-0 text-2xl font-light leading-none"
+                  style={{ color: isOpen ? "rgba(255,255,255,0.6)" : "var(--color-foreground)" }}
+                >
+                  {isOpen ? "−" : "+"}
+                </span>
+              </div>
+              {isOpen && (
+                <p className="mt-4 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  {faq.a}
+                </p>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </section>
   );
 }

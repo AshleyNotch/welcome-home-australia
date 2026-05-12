@@ -1,56 +1,77 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import logoImg from "@/assets/logo.png";
+
+const navLinks = [
+  { to: "/services" as const, label: "Services" },
+  { to: "/about" as const, label: "About Us" },
+  { to: "/client-stories" as const, label: "Client Stories" },
+  { to: "/contact" as const, label: "Contact Us" },
+];
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 bg-foreground text-background">
-      <div className="container-prose grid gap-12 py-16 md:grid-cols-4">
-        <div className="md:col-span-2 max-w-md">
-          <div className="flex items-center gap-3">
-            <img src={logoImg} alt="Master Guide Australia" className="h-12 w-12 object-contain brightness-0 invert" />
-            <span className="text-lg font-semibold">Masterguides Australia</span>
-          </div>
-          <p className="mt-5 text-sm leading-relaxed text-background/70">
-            A migration & visa consultancy delivering lawful, accurate, long-term solutions for individuals and businesses moving to Australia.
-          </p>
-          <div className="mt-6 flex gap-3 text-[0.65rem] uppercase tracking-[0.25em] text-background/60">
-            <span className="rounded-full border border-background/30 px-3 py-1.5">MARA Aware</span>
-            <span className="rounded-full border border-background/30 px-3 py-1.5">MIA Member</span>
-          </div>
+    <footer className="mx-[50px] mt-5 overflow-hidden rounded-t-[14px]" style={{ backgroundColor: "#0d1f35" }}>
+
+      {/* Top section */}
+      <div className="flex items-start justify-between gap-10 px-[50px] pt-14 pb-10">
+
+        {/* Headline + CTA */}
+        <div>
+          <h2 className="font-display text-4xl font-light leading-tight text-white md:text-5xl lg:text-[3.5rem]">
+            Let's begin your<br />migration journey.
+          </h2>
+          <Link
+            to="/contact"
+            className="mt-8 inline-flex items-center rounded-full py-2 pl-6 pr-2 text-sm font-semibold uppercase tracking-[0.12em] transition-opacity hover:opacity-80"
+            style={{ backgroundColor: "rgba(255,255,255,0.12)", color: "white" }}
+          >
+            Book a Call
+            <span className="ml-4 flex h-8 w-8 items-center justify-center rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.2)" }}>
+              <ArrowUpRight className="h-4 w-4 text-white" />
+            </span>
+          </Link>
         </div>
 
-        <div>
-          <h4 className="text-[0.7rem] font-medium uppercase tracking-[0.25em] text-background/60">Navigate</h4>
-          <ul className="mt-5 space-y-3 text-sm">
-            {[
-              { to: "/services", label: "Services" },
-              { to: "/about", label: "About Us" },
-              { to: "/client-stories", label: "Client Stories" },
-              { to: "/contact", label: "Contact Us" },
-            ].map((n) => (
-              <li key={n.to}>
-                <Link to={n.to} className="text-background/80 hover:text-background">{n.label}</Link>
-              </li>
-            ))}
-          </ul>
+        {/* Contact info */}
+        <div className="hidden shrink-0 text-right text-sm leading-loose md:block" style={{ color: "rgba(255,255,255,0.45)" }}>
+          <p>Sydney, NSW</p>
+          <p>Australia</p>
+          <p className="mt-2">+61 (0) 000 000 000</p>
+          <p>hello@masterguidesaustralia.com</p>
         </div>
+      </div>
 
-        <div>
-          <h4 className="text-[0.7rem] font-medium uppercase tracking-[0.25em] text-background/60">Contact</h4>
-          <ul className="mt-5 space-y-3 text-sm text-background/80">
-            <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 text-accent" /> Sydney, NSW · Australia</li>
-            <li className="flex items-start gap-2"><Mail className="mt-0.5 h-4 w-4 text-accent" /> hello@masterguidesaustralia.com</li>
-            <li className="flex items-start gap-2"><Phone className="mt-0.5 h-4 w-4 text-accent" /> +61 (0) 000 000 000</li>
-          </ul>
-        </div>
+      {/* Divider */}
+      <div className="mx-[50px] border-t" style={{ borderColor: "rgba(255,255,255,0.1)" }} />
+
+      {/* Bottom bar */}
+      <div className="flex items-center justify-between gap-6 px-[50px] py-6">
+        <Link to="/" className="flex items-center gap-3">
+          <img src={logoImg} alt="Masterguides Australia" className="h-9 w-9 object-contain brightness-0 invert opacity-80" />
+          <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>
+            Masterguides Australia
+          </span>
+        </Link>
+
+        <nav className="hidden items-center gap-7 md:flex">
+          {navLinks.map((n) => (
+            <Link
+              key={n.to}
+              to={n.to}
+              className="text-sm transition-colors"
+              style={{ color: "rgba(255,255,255,0.5)" }}
+            >
+              {n.label}
+            </Link>
+          ))}
+        </nav>
+
+        <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+          © Masterguides Australia {new Date().getFullYear()}. All rights reserved.
+        </span>
       </div>
-      <div className="border-t border-background/15">
-        <div className="container-prose flex flex-col items-start justify-between gap-3 py-6 text-xs text-background/60 md:flex-row md:items-center">
-          <span>© {new Date().getFullYear()} Masterguides Australia. All rights reserved.</span>
-          <span>Information on this site is general guidance, not legal advice.</span>
-        </div>
-      </div>
+
     </footer>
   );
 }
