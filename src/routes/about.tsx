@@ -65,7 +65,7 @@ function AboutPage() {
           <div>
             <p className="text-lg text-background/80">A short consultation is often all it takes to know whether your application is on safe ground.</p>
             <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-4 text-sm font-semibold text-foreground hover:-translate-y-0.5 transition-transform">
-              Book a Consultation <ArrowUpRight className="h-4 w-4" />
+              Book a Free Consultation <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

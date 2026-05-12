@@ -10,11 +10,11 @@ function ContactPage() {
     <>
       <section className="bg-secondary">
         <div className="container-prose py-24 md:py-32">
-          <p className="eyebrow">Contact Us</p>
-          <h1 className="mt-5 max-w-2xl font-display text-5xl font-light leading-[1.05] md:text-6xl">
+          <p className="eyebrow animate-page-eyebrow">Contact Us</p>
+          <h1 className="mt-5 max-w-2xl font-display text-5xl font-light leading-[1.05] md:text-6xl animate-page-title">
             Let's talk about your <em className="text-brass-deep">visa pathway</em>.
           </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-foreground/80">
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-foreground/80 animate-page-subtitle">
             Book a confidential consultation. We'll assess your eligibility, identify risks, and outline the strongest pathway under current migration law.
           </p>
         </div>
@@ -29,8 +29,8 @@ function ContactPage() {
               </span>
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Email</p>
-                <a href="mailto:hello@masterguidesaustralia.com" className="mt-1 font-display text-lg hover:text-brass-deep">
-                  hello@masterguidesaustralia.com
+                <a href="mailto:info@masterguidesautralia.com" className="mt-1 font-display text-lg hover:text-brass-deep">
+                  info@masterguidesautralia.com
                 </a>
               </div>
             </div>
@@ -40,8 +40,8 @@ function ContactPage() {
               </span>
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Phone</p>
-                <a href="tel:+610000000000" className="mt-1 font-display text-lg hover:text-brass-deep">
-                  +61 (0) 000 000 000
+                <a href="tel:+61426899272" className="mt-1 font-display text-lg hover:text-brass-deep">
+                  +61 426 899 272
                 </a>
               </div>
             </div>
@@ -51,13 +51,13 @@ function ContactPage() {
               </span>
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Location</p>
-                <p className="mt-1 font-display text-lg">Sydney, NSW · Australia</p>
+                <p className="mt-1 font-display text-lg">381, Level 2, 66 Victor Crescent, Narre Warren, Victoria 3805, Australia</p>
               </div>
             </div>
           </div>
 
           <div className="rounded-2xl border border-border bg-secondary p-10">
-            <p className="eyebrow mb-6">Book a Consultation</p>
+            <p className="eyebrow mb-6">Book a Free Consultation</p>
             <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>

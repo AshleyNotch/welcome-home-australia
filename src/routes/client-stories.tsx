@@ -34,11 +34,11 @@ function ClientStoriesPage() {
     <>
       <section className="bg-secondary">
         <div className="container-prose py-24 md:py-32">
-          <p className="eyebrow">Client Stories</p>
-          <h1 className="mt-5 max-w-3xl font-display text-5xl font-light leading-[1.05] md:text-6xl">
+          <p className="eyebrow animate-page-eyebrow">Client Stories</p>
+          <h1 className="mt-5 max-w-3xl font-display text-5xl font-light leading-[1.05] md:text-6xl animate-page-title">
             Real outcomes for <em className="text-brass-deep">real people</em>.
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/80">
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/80 animate-page-subtitle">
             Every case is personal. These are a few of the clients we've guided through Australia's complex migration system — each with a different pathway, each with a successful outcome.
           </p>
         </div>

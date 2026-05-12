@@ -251,10 +251,49 @@
   65%       { transform: translateY(-2px); }
 }
 
+/* ── Page & scroll entrance animations ───────────────────────────────────── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+@layer utilities {
+  .animate-mobile-img   { animation: fade-in  0.9s cubic-bezier(0.4,0,0.2,1) 0.05s both; }
+  .animate-mobile-pills { animation: fade-up  0.6s cubic-bezier(0.4,0,0.2,1) 0.3s  both; }
+  .animate-mobile-title { animation: fade-up  0.7s cubic-bezier(0.4,0,0.2,1) 0.5s  both; }
+  .animate-mobile-cta   { animation: fade-up  0.6s cubic-bezier(0.4,0,0.2,1) 0.7s  both; }
+  .animate-mobile-menu  { animation: fade-in  0.5s cubic-bezier(0.4,0,0.2,1) 0.8s  both; }
+}
+
+@layer utilities {
+  /* Page-load: applied directly on inner page elements, play on mount */
+  .animate-page-eyebrow  { animation: fade-up 0.55s cubic-bezier(0.4,0,0.2,1) 0.05s both; }
+  .animate-page-title    { animation: fade-up 0.65s cubic-bezier(0.4,0,0.2,1) 0.15s both; }
+  .animate-page-subtitle { animation: fade-up 0.65s cubic-bezier(0.4,0,0.2,1) 0.28s both; }
+  .animate-page-content  { animation: fade-up 0.65s cubic-bezier(0.4,0,0.2,1) 0.42s both; }
+}
+
 @layer utilities {
   .container-prose {
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  @media (min-width: 768px) {
+    .container-prose {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
   }
   .eyebrow {
     font-family: var(--font-sans);

@@ -41,7 +41,7 @@ export function SiteHeader() {
           to="/contact"
           className="hidden items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition-colors hover:bg-ink-soft md:inline-flex"
         >
-          Book a Consultation
+          Book a Free Consultation
         </Link>
 
         <button
@@ -71,7 +71,7 @@ export function SiteHeader() {
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background"
             >
-              Book a Consultation
+              Book a Free Consultation
             </Link>
           </div>
         </div>

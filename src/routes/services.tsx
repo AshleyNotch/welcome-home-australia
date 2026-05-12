@@ -13,11 +13,11 @@ function ServicesPage() {
     <>
       <section className="bg-secondary">
         <div className="container-prose py-24 md:py-32">
-          <p className="eyebrow">Our Services</p>
-          <h1 className="mt-5 max-w-3xl font-display text-5xl font-light leading-[1.05] md:text-6xl">
+          <p className="eyebrow animate-page-eyebrow">Our Services</p>
+          <h1 className="mt-5 max-w-3xl font-display text-5xl font-light leading-[1.05] md:text-6xl animate-page-title">
             Comprehensive migration guidance, <em className="text-brass-deep">every pathway</em>.
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/80">
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/80 animate-page-subtitle">
             From first entry to permanent residency and citizenship — lawful, strategic guidance across all major visa categories and immigration matters.
           </p>
         </div>
