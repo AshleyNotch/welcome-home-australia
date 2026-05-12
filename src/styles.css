@@ -284,6 +284,15 @@
   .animate-page-content  { animation: fade-up 0.65s cubic-bezier(0.4,0,0.2,1) 0.42s both; }
 }
 
+@keyframes ticker-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes ticker-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 @layer utilities {
   .container-prose {
     padding-left: 20px;

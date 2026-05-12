@@ -6,7 +6,8 @@ import { PageHero } from "@/components/page-hero";
 import { TestimonialsSection } from "@/components/testimonials-section";
 import { aboutTestimonials } from "@/lib/testimonials-data";
 import heroImg from "@/assets/hero-sydney.jpg";
-import aboutImg from "@/assets/about-clients.jpg";
+import consultationBannerImg from "@/assets/consultation-banner.webp";
+import aboutImg from "@/assets/about-us.webp";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -171,9 +172,9 @@ function AboutPage() {
       <section className="mx-3 mb-5 overflow-hidden rounded-[14px] md:mx-[50px]">
         <div className="relative">
           <img
-            src={heroImg}
+            src={consultationBannerImg}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-[50%_30%]"
+            className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-foreground/65" />
           <div className="relative flex min-h-[300px] flex-col items-center justify-center px-6 py-16 text-center md:h-[340px] md:min-h-0">

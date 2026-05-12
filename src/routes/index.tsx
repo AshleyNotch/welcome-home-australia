@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { useBookingModal } from "@/components/booking-modal";
 import { ArrowUpRight, ChevronDown, Briefcase, Gem, Users, Zap, Quote, Menu, X } from "lucide-react";
 import heroImg from "@/assets/hero-sydney.jpg";
+import consultationBannerImg from "@/assets/consultation-banner.webp";
 import logoImg from "@/assets/logo.png";
 import { services } from "@/lib/services-data";
 import { InView } from "@/components/in-view";
@@ -658,11 +659,11 @@ function Index() {
       <section className="mx-3 mt-5 overflow-hidden rounded-[14px] md:mx-[50px]" style={{ minHeight: '260px' }}>
         <div className="relative h-full">
           <img
-            src={heroImg}
+            src={consultationBannerImg}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-[50%_30%]"
+            className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-foreground/60" />
+          <div className="absolute inset-0 bg-foreground/55" />
           <div className="relative flex min-h-[260px] flex-col items-center justify-center gap-6 py-12 text-center px-6 md:min-h-0 md:h-[340px]">
             <InView y={20} className="w-full text-center">
               <h2 className="font-display text-4xl font-bold text-background md:text-5xl">

@@ -4,7 +4,8 @@ import { useBookingModal } from "@/components/booking-modal";
 import { InView } from "@/components/in-view";
 import { PageHero } from "@/components/page-hero";
 import { wallTestimonials } from "@/lib/testimonials-data";
-import heroImg from "@/assets/hero-sydney.jpg";
+import heroImg from "@/assets/clients.webp";
+import consultationBannerImg from "@/assets/consultation-banner.webp";
 
 export const Route = createFileRoute("/client-stories")({
   component: ClientStoriesPage,
@@ -24,47 +25,64 @@ function ClientStoriesPage() {
         onCta={openModal}
       />
 
-      {/* ─── TESTIMONIAL WALL ─────────────────────────────────── */}
-      <section className="bg-background px-5 py-16 md:px-[50px] md:py-20">
-        <InView>
+      {/* ─── TESTIMONIAL TICKER ───────────────────────────────── */}
+      <section className="bg-background py-16 md:py-20">
+        <InView className="px-5 md:px-[50px]">
           <p className="text-base font-bold text-foreground">What our clients say</p>
           <div className="mt-4 border-t border-border" />
         </InView>
 
-        {/* Masonry wall — CSS columns for natural height variation */}
-        <div className="mt-10 columns-1 gap-3 sm:columns-2 lg:columns-3">
-          {wallTestimonials.map((t, i) => {
-            const initials = t.name.split(" ").map((n) => n[0]).join("");
+        <div className="mt-10 flex flex-col gap-4 overflow-hidden">
+          {[0, 1, 2].map((row) => {
+            // Rotate start point per row so each row shows different cards first
+            const offset = row * 4;
+            const items = [...wallTestimonials.slice(offset), ...wallTestimonials.slice(0, offset)];
+            const movesRight = row % 2 === 0;
+            const speed = 40 + row * 5;
             return (
-              <InView key={t.name} delay={i * 40} y={14} threshold={0.05}>
-                <div className="mb-3 break-inside-avoid rounded-2xl border border-border bg-background p-6">
-                  {/* Stars */}
-                  <div className="flex gap-px">
-                    {Array.from({ length: 5 }).map((_, j) => (
-                      <span key={j} style={{ color: "#f59e0b", fontSize: "12px" }}>★</span>
-                    ))}
-                  </div>
-
-                  {/* Quote */}
-                  <p className="mt-4 text-sm leading-relaxed text-foreground/70">
-                    "{t.quote}"
-                  </p>
-
-                  {/* Author */}
-                  <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
-                    <div
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[0.65rem] font-bold text-white"
-                      style={{ backgroundColor: "#00417c" }}
-                    >
-                      {initials}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{t.name}</p>
-                      <p className="text-[0.62rem] text-foreground/40">{t.visa}</p>
-                    </div>
-                  </div>
+              <div key={row} className="overflow-hidden">
+                <div
+                  className="flex flex-nowrap gap-4"
+                  style={{
+                    animation: `${movesRight ? "ticker-right" : "ticker-left"} ${speed}s linear infinite`,
+                    willChange: "transform",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.animationPlayState = "paused")}
+                  onMouseLeave={(e) => (e.currentTarget.style.animationPlayState = "running")}
+                >
+                  {/* Duplicate for seamless loop */}
+                  {[...items, ...items].map((t, i) => {
+                    const initials = t.name.split(" ").map((n) => n[0]).join("");
+                    return (
+                      <div
+                        key={`${t.name}-${i}`}
+                        className="w-[320px] shrink-0 rounded-2xl border border-border bg-background p-6"
+                      >
+                        <div className="flex gap-px mb-4">
+                          {Array.from({ length: 5 }).map((_, j) => (
+                            <span key={j} style={{ color: "#f59e0b", fontSize: "12px" }}>★</span>
+                          ))}
+                        </div>
+                        <p className="text-sm leading-relaxed text-foreground/70">
+                          "{t.quote}"
+                        </p>
+                        <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
+                          <div
+                            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[0.65rem] font-bold text-white"
+                            style={{ backgroundColor: "#00417c" }}
+                          >
+                            {initials}
+                          </div>
+                          <div>
+                            <p className="text-sm font-semibold text-foreground">{t.name}</p>
+                            <p className="text-[0.62rem] text-foreground/40">{t.visa}</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              </InView>
+              </div>
             );
           })}
         </div>
@@ -97,9 +115,9 @@ function ClientStoriesPage() {
       <section className="mx-3 mb-5 mt-3 overflow-hidden rounded-[14px] md:mx-[50px]">
         <div className="relative">
           <img
-            src={heroImg}
+            src={consultationBannerImg}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-[50%_30%]"
+            className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-foreground/65" />
           <div className="relative flex min-h-[300px] flex-col items-center justify-center px-6 py-16 text-center md:h-[340px] md:min-h-0">
