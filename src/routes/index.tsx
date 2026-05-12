@@ -1,5 +1,7 @@
+
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useEffect, useState } from "react";
+import { useBookingModal } from "@/components/booking-modal";
 import { ArrowUpRight, ChevronDown, Briefcase, Gem, Users, Zap, Quote, Menu, X } from "lucide-react";
 import heroImg from "@/assets/hero-sydney.jpg";
 import logoImg from "@/assets/logo.png";
@@ -330,6 +332,7 @@ const homeStories = [
 ];
 
 function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const { openModal } = useBookingModal();
   return (
     <>
       {/* Backdrop */}
@@ -340,8 +343,8 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
       />
       {/* Panel */}
       <div
-        className="fixed left-0 top-0 z-50 flex h-full w-[300px] flex-col bg-background transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] md:hidden"
-        style={{ transform: isOpen ? "translateX(0)" : "translateX(-100%)" }}
+        className="fixed right-0 top-0 z-50 flex h-full w-[300px] flex-col bg-background transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] md:hidden"
+        style={{ transform: isOpen ? "translateX(0)" : "translateX(100%)" }}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-8 pb-6">
@@ -375,14 +378,13 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
 
         {/* CTA */}
         <div className="mt-auto px-6 pb-12">
-          <Link
-            to="/contact"
-            onClick={onClose}
+          <button
+            onClick={() => { onClose(); openModal(); }}
             className="flex items-center justify-center gap-2 rounded-full bg-foreground px-6 py-4 text-sm font-semibold text-background transition-opacity hover:opacity-80"
           >
             Book a Free Call
             <ArrowUpRight className="h-4 w-4" />
-          </Link>
+          </button>
         </div>
       </div>
     </>
@@ -395,6 +397,7 @@ function scrollDown() {
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { openModal } = useBookingModal();
   return (
     <>
       <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
@@ -414,8 +417,8 @@ function Index() {
         <div className="relative h-full bg-background md:hidden">
           {/* Card with rounded corners on all 4 sides */}
           <div
-            className="relative mx-4 mt-4 overflow-hidden rounded-[20px]"
-            style={{ height: "calc(100% - 16px)" }}
+            className="relative mx-4 mt-4 mb-4 overflow-hidden rounded-[20px]"
+            style={{ height: "calc(100% - 32px)" }}
           >
             <img
               src={heroImg}
@@ -452,10 +455,11 @@ function Index() {
               </h1>
 
               <div className="animate-mobile-cta mt-5">
-                <Link to="/contact"
+                <button
+                  onClick={openModal}
                   className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-foreground">
                   Book a Free Call <ArrowUpRight className="h-4 w-4" />
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -521,13 +525,14 @@ function Index() {
                     </Link>
                   ))}
                 </div>
-                <Link to="/contact"
+                <button
+                  onClick={openModal}
                   className="animate-hero-cta flex items-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-medium text-foreground transition-opacity hover:opacity-85">
                   Book a Free Call
                   <span className="inline-block" style={{ animation: "hero-icon-spin 0.6s cubic-bezier(0.4,0,0.2,1) 2.8s both" }}>
                     <ArrowUpRight className="h-4 w-4" />
                   </span>
-                </Link>
+                </button>
               </div>
             </nav>
 
@@ -594,14 +599,13 @@ function Index() {
                   <div className="overflow-hidden">
                     <div className="flex items-end justify-between gap-6">
                       <p className="text-sm text-background/50 lg:text-base">{s.short}</p>
-                      <Link
-                        to="/contact"
-                        onClick={(e) => e.stopPropagation()}
+                      <button
+                        onClick={(e) => { e.stopPropagation(); openModal(); }}
                         className="shrink-0 inline-flex items-center gap-2 rounded-full bg-background px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-foreground transition-opacity hover:opacity-80"
                       >
                         Book a Free Call
                         <ArrowUpRight className="h-3.5 w-3.5" />
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -699,15 +703,15 @@ function Index() {
           <div className="mt-4 border-t border-border" />
         </div>
 
-        <div className="mt-8 flex gap-4 pb-12 pl-5 overflow-x-auto md:pl-[50px]" style={{ scrollbarWidth: 'none' }}>
+        <div className="mt-8 flex flex-col gap-4 pb-12 px-5 md:flex-row md:flex-nowrap md:overflow-x-auto md:pl-[50px] md:px-0" style={{ scrollbarWidth: 'none' }}>
           {homeStories.flatMap((s) => {
             const initials = s.name.split(" ").map((n) => n[0]).join("");
             return [
-              /* Portrait card */
+              /* Portrait card — desktop only */
               <div
                 key={`${s.name}-photo`}
-                className="relative flex w-[260px] shrink-0 flex-col justify-end overflow-hidden rounded-2xl p-5 md:p-7"
-                style={{ backgroundColor: "#00417c", height: "400px" }}
+                className="relative hidden md:flex w-full md:w-[260px] md:shrink-0 flex-col justify-end overflow-hidden rounded-2xl p-5 md:p-7 h-[280px] md:h-[400px]"
+                style={{ backgroundColor: "#00417c" }}
               >
                 <span className="absolute inset-0 flex items-center justify-center text-[140px] font-bold select-none" style={{ color: "rgba(255,255,255,0.07)" }}>
                   {initials}
@@ -721,8 +725,8 @@ function Index() {
               /* Quote card */
               <div
                 key={`${s.name}-quote`}
-                className="flex w-[400px] shrink-0 flex-col justify-between rounded-2xl p-8"
-                style={{ backgroundColor: "#d8e8f5", height: "400px" }}
+                className="flex w-full md:w-[400px] md:shrink-0 flex-col justify-between rounded-2xl p-8 md:h-[400px]"
+                style={{ backgroundColor: "#d8e8f5" }}
               >
                 <div className="flex items-start justify-between">
                   <div>
@@ -737,9 +741,9 @@ function Index() {
                   </div>
                 </div>
 
-                <p className="text-xl font-light leading-relaxed text-foreground">"{s.quote}"</p>
+                <p className="text-xl font-light leading-relaxed text-foreground mt-6 md:mt-0">"{s.quote}"</p>
 
-                <div>
+                <div className="mt-6 md:mt-0">
                   <span className="mb-4 inline-block rounded-full border border-brass/40 px-3 py-1 text-xs font-medium uppercase tracking-[0.15em] text-brass-deep">
                     {s.outcome}
                   </span>
@@ -750,7 +754,7 @@ function Index() {
               </div>,
             ];
           })}
-          <div className="w-[50px] shrink-0" />
+          <div className="hidden md:block w-[50px] shrink-0" />
         </div>
       </section>
 

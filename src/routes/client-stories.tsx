@@ -1,89 +1,85 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Quote } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
+import { useBookingModal } from "@/components/booking-modal";
+import { InView } from "@/components/in-view";
+import { PageHero } from "@/components/page-hero";
+import { TestimonialsSection } from "@/components/testimonials-section";
+import { clientStoriesTestimonials } from "@/lib/testimonials-data";
+import heroImg from "@/assets/hero-sydney.jpg";
 
 export const Route = createFileRoute("/client-stories")({
   component: ClientStoriesPage,
 });
 
-const stories = [
-  {
-    name: "Themiya Wickramage",
-    visa: "Skilled Migration · Subclass 189",
-    outcome: "Permanent Residency Granted",
-    quote:
-      "I was sceptical about my visa process, but the team's expertise quickly dispelled every doubt. Meticulous planning, calm execution — my visa was approved without disruption.",
-  },
-  {
-    name: "Bhagya Senatilake",
-    visa: "Partner Visa · Subclass 820",
-    outcome: "Visa Approved",
-    quote:
-      "Exceptional support for a complex case. Every concern was addressed promptly and professionally. What could have been stressful became completely seamless.",
-  },
-  {
-    name: "Ahen Wanigasekara",
-    visa: "Employer Sponsored · Subclass 482",
-    outcome: "Nomination & Visa Approved",
-    quote:
-      "Master Guides Australia handled my case with precision and efficiency. They were responsive at every step and made the process unusually easy.",
-  },
-];
 
 function ClientStoriesPage() {
+  const { openModal } = useBookingModal();
+
   return (
     <>
-      <section className="bg-secondary">
-        <div className="container-prose py-24 md:py-32">
-          <p className="eyebrow animate-page-eyebrow">Client Stories</p>
-          <h1 className="mt-5 max-w-3xl font-display text-5xl font-light leading-[1.05] md:text-6xl animate-page-title">
-            Real outcomes for <em className="text-brass-deep">real people</em>.
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/80 animate-page-subtitle">
-            Every case is personal. These are a few of the clients we've guided through Australia's complex migration system — each with a different pathway, each with a successful outcome.
-          </p>
+      <PageHero
+        eyebrow="Client Stories"
+        heading="Real outcomes for real people."
+        description="Every case is personal. These are a few of the clients we've guided through Australia's complex migration system — each with a successful outcome."
+        image={heroImg}
+        imageAlt="Sydney Harbour"
+        onCta={openModal}
+      />
+
+      <TestimonialsSection testimonials={clientStoriesTestimonials} />
+
+      {/* ─── STATS BANNER ─────────────────────────────────────── */}
+      <section
+        className="mx-3 overflow-hidden rounded-[14px] px-5 py-10 md:mx-[50px] md:px-[50px] md:py-14"
+        style={{ backgroundColor: "#00417c" }}
+      >
+        <div className="grid grid-cols-1 gap-px sm:grid-cols-3">
+          {[
+            { value: "98%", label: "Client satisfaction rate" },
+            { value: "10K+", label: "Cases reviewed & guided" },
+            { value: "10+", label: "Years of expertise" },
+          ].map((s, i) => (
+            <InView key={s.label} delay={i * 80} y={12}>
+              <div className="flex flex-col items-center py-8 text-center">
+                <span className="font-display text-5xl font-bold text-white md:text-6xl">
+                  {s.value}
+                </span>
+                <p className="mt-3 text-sm text-white/50">{s.label}</p>
+              </div>
+            </InView>
+          ))}
         </div>
       </section>
 
-      <section className="bg-background">
-        <div className="container-prose py-24 md:py-32">
-          <div className="grid gap-px bg-border md:grid-cols-1">
-            {stories.map((s) => (
-              <figure key={s.name} className="bg-background p-10 md:p-14">
-                <Quote className="h-8 w-8 text-brass" />
-                <blockquote className="mt-6 max-w-3xl font-display text-2xl font-light leading-relaxed text-foreground md:text-3xl">
-                  "{s.quote}"
-                </blockquote>
-                <figcaption className="mt-8 flex flex-wrap items-center gap-6 border-t border-border pt-8">
-                  <div>
-                    <div className="font-display text-lg font-medium">{s.name}</div>
-                    <div className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">{s.visa}</div>
-                  </div>
-                  <span className="rounded-full border border-brass/40 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-brass-deep">
-                    {s.outcome}
+      {/* ─── CTA BANNER ───────────────────────────────────────── */}
+      <section className="mx-3 mb-5 mt-3 overflow-hidden rounded-[14px] md:mx-[50px]">
+        <div className="relative">
+          <img
+            src={heroImg}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-[50%_30%]"
+          />
+          <div className="absolute inset-0 bg-foreground/65" />
+          <div className="relative flex min-h-[300px] flex-col items-center justify-center px-6 py-16 text-center md:h-[340px] md:min-h-0">
+            <InView y={20} className="w-full text-center">
+              <h2 className="font-display text-4xl font-bold text-background md:text-5xl">
+                Ready to write your own success story?
+              </h2>
+              <p className="mx-auto mt-5 max-w-lg text-background/70">
+                Book a confidential consultation and let us map your strongest pathway under current Australian migration law.
+              </p>
+              <div className="mt-8">
+                <button
+                  onClick={openModal}
+                  className="inline-flex items-center rounded-full bg-background pl-7 pr-2 py-2 text-sm font-semibold uppercase tracking-[0.15em] text-foreground transition-opacity hover:opacity-90"
+                >
+                  Book a Free Consultation
+                  <span className="ml-4 flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-background">
+                    <ArrowUpRight className="h-4 w-4" />
                   </span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-foreground text-background">
-        <div className="container-prose grid gap-10 py-24 md:grid-cols-2 md:items-center md:py-28">
-          <h2 className="font-display text-4xl font-light leading-tight md:text-5xl">
-            Ready to write your own success story?
-          </h2>
-          <div>
-            <p className="text-lg text-background/80">
-              Book a confidential consultation and let us map your strongest pathway under current Australian migration law.
-            </p>
-            <Link
-              to="/contact"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-4 text-sm font-semibold text-foreground transition-transform hover:-translate-y-0.5"
-            >
-              Book a Free Consultation
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+                </button>
+              </div>
+            </InView>
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
+import { useBookingModal } from "@/components/booking-modal";
 import logoImg from "@/assets/logo.png";
 
 const navLinks = [
@@ -10,6 +11,7 @@ const navLinks = [
 ];
 
 export function SiteFooter() {
+  const { openModal } = useBookingModal();
   return (
     <footer className="mx-3 mt-5 overflow-hidden rounded-t-[14px] md:mx-[50px]" style={{ backgroundColor: "#0d1f35" }}>
 
@@ -21,8 +23,8 @@ export function SiteFooter() {
           <h2 className="font-display text-3xl font-light leading-tight text-white md:text-5xl lg:text-[3.5rem]">
             Let's begin your<br />migration journey.
           </h2>
-          <Link
-            to="/contact"
+          <button
+            onClick={openModal}
             className="mt-6 inline-flex items-center rounded-full py-2 pl-6 pr-2 text-sm font-semibold uppercase tracking-[0.12em] transition-opacity hover:opacity-80"
             style={{ backgroundColor: "rgba(255,255,255,0.12)", color: "white" }}
           >
@@ -30,7 +32,7 @@ export function SiteFooter() {
             <span className="ml-4 flex h-8 w-8 items-center justify-center rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.2)" }}>
               <ArrowUpRight className="h-4 w-4 text-white" />
             </span>
-          </Link>
+          </button>
         </div>
 
         {/* Contact info — desktop only */}

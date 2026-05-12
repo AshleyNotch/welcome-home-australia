@@ -4,11 +4,11 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  useRouterState,
 } from "@tanstack/react-router";
 
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { BookingModalProvider } from "@/components/booking-modal";
 
 function NotFoundComponent() {
   return (
@@ -75,18 +75,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const isHome = useRouterState({ select: (s) => s.location.pathname === "/" });
-
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col bg-background text-foreground">
-        {/* On the home page, the hero handles its own nav (desktop split-screen + mobile card with hamburger) */}
-        {!isHome && <SiteHeader />}
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <SiteFooter />
-      </div>
+      <BookingModalProvider>
+        <div className="flex min-h-screen flex-col bg-background text-foreground">
+          <SiteHeader />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <SiteFooter />
+        </div>
+      </BookingModalProvider>
     </QueryClientProvider>
   );
 }

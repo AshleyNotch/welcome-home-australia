@@ -69,8 +69,8 @@
   /* Brand tokens */
   --ink: oklch(0.22 0.04 250);              /* deep navy ink */
   --ink-soft: oklch(0.32 0.04 250);
-  --paper: oklch(0.98 0.012 85);            /* warm ivory */
-  --paper-warm: oklch(0.95 0.022 80);
+  --paper: oklch(0.99 0 0);                 /* neutral white */
+  --paper-warm: oklch(0.92 0.03 228);       /* #d8e8f5 light blue */
   --brass: oklch(0.74 0.12 75);             /* warm gold */
   --brass-deep: oklch(0.6 0.12 65);
 
@@ -85,14 +85,14 @@
   --primary-foreground: var(--paper);
   --secondary: var(--paper-warm);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.93 0.012 85);
+  --muted: oklch(0.94 0 0);
   --muted-foreground: oklch(0.45 0.02 250);
   --accent: var(--brass);
   --accent-foreground: var(--ink);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.88 0.015 85);
-  --input: oklch(0.88 0.015 85);
+  --border: oklch(0.90 0 0);
+  --input: oklch(0.90 0 0);
   --ring: var(--brass);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
