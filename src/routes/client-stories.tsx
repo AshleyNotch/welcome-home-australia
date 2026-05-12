@@ -3,14 +3,12 @@ import { ArrowUpRight } from "lucide-react";
 import { useBookingModal } from "@/components/booking-modal";
 import { InView } from "@/components/in-view";
 import { PageHero } from "@/components/page-hero";
-import { TestimonialsSection } from "@/components/testimonials-section";
-import { clientStoriesTestimonials } from "@/lib/testimonials-data";
+import { wallTestimonials } from "@/lib/testimonials-data";
 import heroImg from "@/assets/hero-sydney.jpg";
 
 export const Route = createFileRoute("/client-stories")({
   component: ClientStoriesPage,
 });
-
 
 function ClientStoriesPage() {
   const { openModal } = useBookingModal();
@@ -26,7 +24,51 @@ function ClientStoriesPage() {
         onCta={openModal}
       />
 
-      <TestimonialsSection testimonials={clientStoriesTestimonials} />
+      {/* ─── TESTIMONIAL WALL ─────────────────────────────────── */}
+      <section className="bg-background px-5 py-16 md:px-[50px] md:py-20">
+        <InView>
+          <p className="text-base font-bold text-foreground">What our clients say</p>
+          <div className="mt-4 border-t border-border" />
+        </InView>
+
+        {/* Masonry wall — CSS columns for natural height variation */}
+        <div className="mt-10 columns-1 gap-3 sm:columns-2 lg:columns-3">
+          {wallTestimonials.map((t, i) => {
+            const initials = t.name.split(" ").map((n) => n[0]).join("");
+            return (
+              <InView key={t.name} delay={i * 40} y={14} threshold={0.05}>
+                <div className="mb-3 break-inside-avoid rounded-2xl border border-border bg-background p-6">
+                  {/* Stars */}
+                  <div className="flex gap-px">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <span key={j} style={{ color: "#f59e0b", fontSize: "12px" }}>★</span>
+                    ))}
+                  </div>
+
+                  {/* Quote */}
+                  <p className="mt-4 text-sm leading-relaxed text-foreground/70">
+                    "{t.quote}"
+                  </p>
+
+                  {/* Author */}
+                  <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
+                    <div
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[0.65rem] font-bold text-white"
+                      style={{ backgroundColor: "#00417c" }}
+                    >
+                      {initials}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{t.name}</p>
+                      <p className="text-[0.62rem] text-foreground/40">{t.visa}</p>
+                    </div>
+                  </div>
+                </div>
+              </InView>
+            );
+          })}
+        </div>
+      </section>
 
       {/* ─── STATS BANNER ─────────────────────────────────────── */}
       <section
