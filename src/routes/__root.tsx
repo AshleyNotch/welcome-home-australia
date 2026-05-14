@@ -4,7 +4,6 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  useLocation,
 } from "@tanstack/react-router";
 
 import { SiteHeader } from "@/components/site-header";
@@ -76,23 +75,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const { pathname } = useLocation();
-  const isHome = pathname === "/";
-
   return (
     <QueryClientProvider client={queryClient}>
       <BookingModalProvider>
-        {isHome ? (
-          <Outlet />
-        ) : (
-          <div className="flex min-h-screen flex-col bg-background text-foreground">
-            <SiteHeader />
-            <main className="flex-1">
-              <Outlet />
-            </main>
-            <SiteFooter />
-          </div>
-        )}
+        <div className="flex min-h-screen flex-col bg-background text-foreground">
+          <SiteHeader />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <SiteFooter />
+        </div>
       </BookingModalProvider>
     </QueryClientProvider>
   );
